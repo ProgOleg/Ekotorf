@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load staticfiles %}
+<head>
+	<title></title>
+</head>
+<body>
+	<h2>{{header_template}}</h2>
+	{% if pk %}
+		<a href="{% url 'admin:app_feedback_change' pk %}">id - {{pk}}</a>
+	{% endif %}
+
+	{% if name %}
+		<p>Имя: {{name}}</p>
+	{% endif %}
+	{% if tell %}
+		<p>Телефон: {{tell}}</p>
+	{% endif %}
+	{% if mail %}
+		<p>Почта: {{mail}}</p>
+	{% endif %}
+	{% if product_title %}
+		<p>Продукт: {{product_title}}</p>
+	{% endif %}
+    {% if quantity %}
+		<p>Количество товара: {{quantity}}</p>
+	{% endif %}
+	<!-- Feedback -->
+	{% if entry %}
+		<p>Отзыв: {{entry}}</p>
+	{% endif %}
+	{% if rating %}
+		<p>Рейтинг(0-5): {{rating}}</p>
+	{% endif %}
+	{% if date_created %}
+		<p>Дата создания: {{date_created}}</p>
+	{% endif %}
+</body>
+</html>

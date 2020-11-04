@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<form method="post", enctype="multipart/form-data", action="{% url 'feedback_url' %}">
+		{% csrf_token %}
+			{% for line in form1 %}
+				{{ line.lable }}
+				{{ line }}
+			{% endfor %}
+			
+			<button name="product_id" value="1" type="submit">Хуйнуть!</button>
+	</form>
+
+</body>
+</html>

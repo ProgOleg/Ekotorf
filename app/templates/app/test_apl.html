@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<form method="post", action="{% url 'test_application_url' %}">
+		{% csrf_token %}
+			{% for line in form1 %}
+				{{ line.lable }}
+				{{ line }}
+			{% endfor %}
+			{% for line in form2 %}
+				{{ line.lable }}
+				{{ line }}
+			{% endfor %}
+			<button name="product_id" value="1" type="submit"></button>
+	</form>
+
+</body>
+</html>
