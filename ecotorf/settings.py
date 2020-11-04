@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+r$_2z^(&od3&lu&ala3(*t!m6t_bmst56*mgw7q1_!%94p!_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'ekotorf.com', 'www.ekotorf.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 
 
 # Application definition
@@ -75,28 +75,27 @@ WSGI_APPLICATION = 'ecotorf.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'torf',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'torf',
+            'USER': 'admin',
+            'PASSWORD': 'admin',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
-"""
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'u1203339_ekotorf',
-        'USER': 'u1203339_default',
-        'PASSWORD': '9pbs!Ca4',
-        'HOST': 'localhost',
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'u1203339_ekotorf',
+            'USER': 'u1203339_default',
+            'PASSWORD': '9pbs!Ca4',
+            'HOST': 'localhost',
+        }
     }
-}
 
 
 # Password validation
@@ -141,27 +140,27 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-'''
-if DEBUG:
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = 'olegbikov1212@gmail.com'
-    EMAIL_HOST_PASSWORD = 'yrina80665716401'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-
-    LOGGING = {'version': 1,
-               'disable_existing_loggers': False,
-               'handlers': {'console':
-                                {'level': 'DEBUG', 'class': 'logging.StreamHandler', }, },
-               'loggers': {'django.db.backends':
-                               {'handlers': ['console'], 'level': 'DEBUG', }, }
-               }
-'''
-
-
-EMAIL_HOST = 'smtp.2a00:f940:2:2:1:1:0:245'
+EMAIL_HOST = 'mail.hosting.reg.ru'
 EMAIL_HOST_USER = 'ekotorf.com@ekotorf.com'
 EMAIL_HOST_PASSWORD = '9pbs!Ca4'
 EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
+#EMAIL_USE_TLS = True
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': 'debug.log',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }

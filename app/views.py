@@ -42,12 +42,7 @@ class IndexPage(View):
 
 
 def application_view(request):
-    if settings.DEBUG:
-        if request.method == 'GET':
-            return render(request, 'app/test_apl.html', {'form1': ApplicationsForm, 'form2': PersonForm})
     if request.method == 'POST':
-        #import pdb
-        #pdb.set_trace()
         applicataion_form = ApplicationsForm(request.POST)
         person_form = PersonForm(request.POST)
         if applicataion_form.is_valid() and person_form.is_valid():
@@ -57,7 +52,7 @@ def application_view(request):
                                               quantity=applicataion_form.cleaned_data['count_product'])
             context = Applications.objects.filter(pk=obj.id).values(
                 'pk', 'person__name', 'person__tell', 'product__title', 'date_created',
-                'person__mailing_status', 'person__mail', 'quantity')
+                'person__mailing_status', 'person__mail', 'quantity', 'person_id')
             context = context[0]
             context_for_application = context.copy()
             data = {'pk': context_for_application['pk'], 'tell': context_for_application['person__tell'],
@@ -69,9 +64,10 @@ def application_view(request):
             send = SendEmailMessage(context_for_application, 'Application', data)
             send.send_message()
             if context['person__mail']:
-                data = {'pk': context['pk']}
+                data = {'pk': context['person_id'], 'mail': context['person__mail']}
                 context_for_mailing = {}
                 context_for_mailing.update({'mail': context['person__mail']})
+                context_for_mailing.update({'pk': context['person_id']})
                 send = SendEmailMessage(context, 'Mailing', data)
                 send.send_message()
             return HttpResponse(status=200)
@@ -81,10 +77,6 @@ def application_view(request):
 
 
 def feedback_view(request):
-
-    if settings.DEBUG:
-        if request.method == 'GET':
-            return render(request, 'app/test_feed.html', {'form1': FeedbackForm})
     if request.method == 'POST':
         foo = FeedbackForm(request.POST, request.FILES)
         if foo.is_valid():
@@ -99,8 +91,6 @@ def feedback_view(request):
 
 
 def callback_view(request):
-    import pdb
-    pdb.set_trace()
     if request.method == 'POST':
         foo = PersonForm(request.POST)
         if foo.is_valid():
