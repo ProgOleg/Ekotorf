@@ -27,7 +27,7 @@ SECRET_KEY = '+r$_2z^(&od3&lu&ala3(*t!m6t_bmst56*mgw7q1_!%94p!_&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'ekotorf.com', 'www.ekotorf.com']
 
 
 # Application definition
@@ -87,10 +87,14 @@ DATABASES = {
     }
 }
 """
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'u1203339_ekotorf',
+        'USER': 'u1203339_default',
+        'PASSWORD': '9pbs!Ca4',
+        'HOST': 'localhost',
     }
 }
 
@@ -137,6 +141,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+'''
 if DEBUG:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'olegbikov1212@gmail.com'
@@ -151,5 +156,12 @@ if DEBUG:
                'loggers': {'django.db.backends':
                                {'handlers': ['console'], 'level': 'DEBUG', }, }
                }
+'''
 
+
+EMAIL_HOST = 'smtp.2a00:f940:2:2:1:1:0:245'
+EMAIL_HOST_USER = 'ekotorf.com@ekotorf.com'
+EMAIL_HOST_PASSWORD = '9pbs!Ca4'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 

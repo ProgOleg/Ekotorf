@@ -46,8 +46,8 @@ def application_view(request):
         if request.method == 'GET':
             return render(request, 'app/test_apl.html', {'form1': ApplicationsForm, 'form2': PersonForm})
     if request.method == 'POST':
-        import pdb
-        pdb.set_trace()
+        #import pdb
+        #pdb.set_trace()
         applicataion_form = ApplicationsForm(request.POST)
         person_form = PersonForm(request.POST)
         if applicataion_form.is_valid() and person_form.is_valid():
