@@ -33,7 +33,7 @@ class IndexPage(View):
             'second_window': SecondWindow.objects.filter(is_active=True).values('title', 'sub_title', 'picture'),
             'product': product_data,
             'working_time': WorkingTime.objects.filter(is_active=True).values('working_time'),
-            'geomarker': Geomarker.objects.filter(is_active=True),
+            'geomarker': Geomarker.objects.filter(is_active=True).values('latitude', 'longitude'),
             'telegram': Telegram.objects.filter(is_active=True).values('link'),
             'whatsapp': Whatsapp.objects.filter(is_active=True).values('link'),
             'viber': Viber.objects.filter(is_active=True).values('link')

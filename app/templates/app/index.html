@@ -165,6 +165,7 @@
 						<div class="catalog-list js-catalog-list" id="catalog-last">
 							{% if product %}
 								{% for el in product %}
+									{% if not forloop.counter|divisibleby:"2" %}
 									<div class="catalog-list__item">
 										<div class="catalog-list__card">
 											<div class="catalog-list__img" data-aos="bloc-reveal" data-aos-delay="1000">
@@ -204,6 +205,49 @@
 											</div>
 										</div>
 									</div>
+									{% else %}
+									<div class="catalog-list__item">
+										<div class="catalog-list__card">
+											<div class="catalog-list__cont">
+												<h3 class="catalog-list__title" data-aos="short-fade-up" data-aos-delay="800">{{ el.title }}</h3>
+												<p class="catalog-list__txt" data-aos="short-fade-up" data-aos-delay="900">
+													{{ el.specification }}
+												</p>
+												<ul class="inf-table" data-aos="short-fade-up" data-aos-delay="1000">
+													<li class="inf-table__item">
+														<div class="inf-table__title">Теплотворная способность</div>
+														<div class="inf-table__value">{{ el.calorific_value }}</div>
+													</li>
+													<li class="inf-table__item">
+														<div class="inf-table__title">Зольность</div>
+														<div class="inf-table__value">{{ el.ash_content }}</div>
+													</li>
+
+													<li class="inf-table__item">
+														<div class="inf-table__title">Механическая прочность</div>
+														<div class="inf-table__value">{{ el.strength }}</div>
+													</li>
+													<li class="inf-table__item">
+														<div class="inf-table__title">Фасовка</div>
+														<div class="inf-table__value">{{ el.packing }}</div>
+													</li>
+													<li class="inf-table__item">
+														<div class="inf-table__title">Цена за тонну</div>
+														<div class="inf-table__value">{{ el.price }}</div>
+													</li>
+												</ul>
+												<a href="#add-order" class="button-yellow js-fancybox" data-pk_product="{{el.pk}}"
+													 data-packin-value="{{el.type_packing}}" data-aos="short-fade-up" data-aos-delay="1100" id="add_order_but">Заказать</a>
+											</div>
+											<div class="catalog-list__img" data-aos="bloc-reveal" data-aos-delay="1000">
+												<a href="#gallery_{{el.pk}}" class="product-img js-fancybox aos-img">
+													<img src="{{ media}}{{ el.picture_main }}" alt="" />
+													<i class="icon-full"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+									{% endif %}
 								{% endfor %}	
 							{% endif %}
 						</div>
@@ -666,6 +710,9 @@
 			</div>
 		</div>
 		<!-- BODY EOF   -->
+		{% if geomarker %}
+			<data id="geomarker" data-latitude="{{geomarker.0.latitude}}" data-longitude="{{geomarker.0.longitude}}"></data>
+		{% endif %}
 		<link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}" />
 		<script src="{% static 'app/js/jquery-3.5.1.min.js' %}"></script>
 		<script src="{% static 'app/js/components/slick.js' %}"></script>

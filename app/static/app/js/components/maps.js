@@ -4,6 +4,8 @@
 	Available for use under the MIT License
 */
 
+
+
 (window.googleMapsScriptLoaded = function () {
 	$(window).trigger("googleMapsScriptLoaded");
 }),
@@ -281,9 +283,11 @@ if ($("#map").length && !$("#map").is(".init")) {
 					],
 				},
 			];
+			//$('#geomarker').data('latitude')
+			//$('#geomarker').data('longitude')
 			var center = {
-				lat: 56.885609,
-				lng: 60.506646,
+				lat: $('#geomarker').data('latitude'),
+				lng: $('#geomarker').data('longitude'),
 			};
 			var marker, icon;
 
@@ -298,7 +302,7 @@ if ($("#map").length && !$("#map").is(".init")) {
 				});
 
 				icon = {
-					url: "app/img/pin-color.svg", // url
+					url: "/static/app/img/pin-color.svg", // url
 					scaledSize: new google.maps.Size(35, 56), // scaled size
 					origin: new google.maps.Point(0, 0), // origin
 					anchor: new google.maps.Point(17, 18), // anchor
