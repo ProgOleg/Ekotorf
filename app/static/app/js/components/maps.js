@@ -286,8 +286,8 @@ if ($("#map").length && !$("#map").is(".init")) {
 			//$('#geomarker').data('latitude')
 			//$('#geomarker').data('longitude')
 			var center = {
-				lat: $('#geomarker').data('latitude'),
-				lng: $('#geomarker').data('longitude'),
+				lat: parseFloat($('#geomarker').data('latitude')),
+				lng: parseFloat($('#geomarker').data('longitude')),
 			};
 			var marker, icon;
 
