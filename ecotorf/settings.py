@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+r$_2z^(&od3&lu&ala3(*t!m6t_bmst56*mgw7q1_!%94p!_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = Fals
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 
