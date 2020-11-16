@@ -109,7 +109,15 @@
 						{% if product %}
 								{% for el in product %}
 									{% if not forloop.counter|divisibleby:"2" %}
-										<div class="catalog-list__item" data-title="Мешок" data-icon="icon-sack">
+										{% if el.type_packing == 1 %}
+											<div class="catalog-list__item" data-title="Мешок" data-icon="icon-sack">
+										{% elif el.type_packing == 2 %}
+											<div class="catalog-list__item" data-title="Термопак" data-icon="icon-ink">
+										{% elif el.type_packing == 3 %}	
+											<div class="catalog-list__item" data-title="Биг-Бег" data-icon="icon-bag">
+										{% elif el.type_packing == 3 %}	
+											<div class="catalog-list__item" data-title="Навал" data-icon="icon-delivery-truck">
+										{% endif %}
 											<div class="catalog-list__card">
 												<div class="catalog-list__img" data-aos="bloc-reveal" data-aos-delay="1000">
 													<a href="#gallery_{{el.pk}}" class="product-img js-fancybox aos-img">
@@ -288,60 +296,59 @@
 					<h2>Отзывы</h2>
 					<div class="reviews-slider js-reviews-slider">
 						{% if feedback %}
-								{% for el in feedback %}
-									<div class="reviews-slider__item" data-aos="fade-right" data-aos-delay="150">
-										<div class="reviews-slider__card">
-											<div class="reviews-slider__user">
-												<div class="reviews-slider__ava">
-													<img src="{{ media}}{{ el.picture }}" alt="" />
-												</div>
-												<div class="reviews-slider__name">{{ el.name }}</div>
+							{% for el in feedback %}
+								<div class="reviews-slider__item" data-aos="fade-right" data-aos-delay="150">
+									<div class="reviews-slider__card">
+										<div class="reviews-slider__user">
+											<div class="reviews-slider__ava">
+												<img src="{{ media}}{{ el.picture }}" alt="" />
 											</div>
-											<p class="reviews-slider__txt">{{ el.entry }} </p>
-											<ul class="rating">
-												{% if el.rating == 0 %}
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-												{% elif el.rating == 1 %}
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-												{% elif el.rating == 2 %}
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-												{% elif el.rating == 3 %}
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star-border"></i></li>
-													<li><i class="icon-star-border"></i></li>
-												{% elif el.rating == 4 %}
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star-border"></i></li>
-												{% elif el.rating == 5 %}
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-													<li><i class="icon-star"></i></li>
-												{% endif %}
-											</ul>
+											<div class="reviews-slider__name">{{ el.name }}</div>
 										</div>
+										<p class="reviews-slider__txt">{{ el.entry }} </p>
+										<ul class="rating">
+											{% if el.rating == 0 %}
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+											{% elif el.rating == 1 %}
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+											{% elif el.rating == 2 %}
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+											{% elif el.rating == 3 %}
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star-border"></i></li>
+												<li><i class="icon-star-border"></i></li>
+											{% elif el.rating == 4 %}
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star-border"></i></li>
+											{% elif el.rating == 5 %}
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+												<li><i class="icon-star"></i></li>
+											{% endif %}
+										</ul>
 									</div>
-								{% endfor %}
-							{% endif %}
-						</div>
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 					<a href="#add-reviews" class="button-yellow js-fancybox" data-aos="fade-right" data-aos-delay="900">Добавить отзыв</a>
 				</div>
@@ -612,25 +619,25 @@
 									<ul class="radio-list">
 										<li class="radio-list__item">
 											<label class="radio-list__label">
-												<input type="radio" name="list-1" />
+												<input type="radio" name="list-1" id="check_1" />
 												<span class="radio-list__btn">Мешок</span>
 											</label>
 										</li>
 										<li class="radio-list__item">
 											<label class="radio-list__label">
-												<input type="radio" name="list-1" checked />
+												<input type="radio" name="list-1" id="check_2" checked />
 												<span class="radio-list__btn">Термоупаковка</span>
 											</label>
 										</li>
 										<li class="radio-list__item">
 											<label class="radio-list__label">
-												<input type="radio" name="list-1" />
+												<input type="radio" name="list-1" id="check_3" />
 												<span class="radio-list__btn">Биг Бег</span>
 											</label>
 										</li>
 										<li class="radio-list__item">
 											<label class="radio-list__label">
-												<input type="radio" name="list-1" />
+												<input type="radio" name="list-1" id="check_4" />
 												<span class="radio-list__btn">Навал</span>
 											</label>
 										</li>

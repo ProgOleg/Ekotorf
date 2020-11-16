@@ -579,6 +579,8 @@ $('#add_order_but').live('click', function(event) {
 		'type' : 'hidden'
 	});
 	$('#order').append(input_pk_value)
+	var type_packing = $(this).data('packin-value')
+	$(`#check_${type_packing}`).prop('checked', true)
 });
 
 /*animation*/
