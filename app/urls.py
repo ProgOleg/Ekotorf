@@ -10,7 +10,6 @@ urlpatterns = [
     path('feedback/', feedback_view, name='feedback_url'),
     path('callback/', callback_view, name='callback_url'),
     path('mailing/', mailing_view, name='mailing_url'),
-    path('admin_tools/', include('admin_tools.urls')),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
