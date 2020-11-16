@@ -14,29 +14,39 @@ from django.db.models import Prefetch, F
 class IndexPage(View):
 
     def get(self, request):
+        is_active = {'is_active': True}
         product_data = []
         obj = Product.objects.filter(is_active=True).values('pk', 'title', 'specification', 'calorific_value',
                                                             'ash_content', 'strength', 'packing', 'type_packing',
-                                                            'price',
-                                                            'picture_main')
+                                                            'price', 'picture_main')
         for el in obj:
             photos = ProductGalleryPhoto.objects.filter(product_id=el['pk']).values('image')
             videos = ProductGalleryVideo.objects.filter(product_id=el['pk']).values('link', 'preview_link')
             product_data.append({**el, 'photos': photos, 'videos': list(videos)})
 
         context = {
-            'tels': TelephoneNumberS.objects.filter(is_active=True).values('tell'),
-            'first_window': FirstWindow.objects.filter(is_active=True).values('title', 'sub_title', 'picture'),
-            'feedback': Feedback.objects.filter(is_active=True),
-            'faq': Faq.objects.filter(is_active=True),
-            'privacy_policy': PrivacyPolicy.objects.filter(is_active=True).values('entry'),
-            'second_window': SecondWindow.objects.filter(is_active=True).values('title', 'sub_title', 'picture'),
+            'tels': TelephoneNumberS.objects.filter(**is_active).values('tell'),
+            'first_window': FirstWindow.objects.filter(**is_active).values('title', 'sub_title', 'picture'),
+            'feedback': Feedback.objects.filter(**is_active),
+            'faq': Faq.objects.filter(**is_active),
+            'privacy_policy': PrivacyPolicy.objects.filter(**is_active).values('entry'),
+            'second_window': SecondWindow.objects.filter(**is_active).values('title', 'sub_title', 'picture'),
             'product': product_data,
-            'working_time': WorkingTime.objects.filter(is_active=True).values('working_time'),
-            'geomarker': Geomarker.objects.filter(is_active=True).values('latitude', 'longitude'),
-            'telegram': Telegram.objects.filter(is_active=True).values('link'),
-            'whatsapp': Whatsapp.objects.filter(is_active=True).values('link'),
-            'viber': Viber.objects.filter(is_active=True).values('link')
+            'working_time': WorkingTime.objects.filter(**is_active).values('working_time'),
+            'geomarker': Geomarker.objects.filter(**is_active).values('latitude', 'longitude'),
+            'telegram': Telegram.objects.filter(**is_active).values('link'),
+            'whatsapp': Whatsapp.objects.filter(**is_active).values('link'),
+            'viber': Viber.objects.filter(**is_active).values('link'),
+            'main_office': MainOffice.objects.filter(**is_active).values('address', 'link'),
+            'benefits_1': Benefits1.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_2': Benefits2.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_3': Benefits3.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_4': Benefits4.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_5': Benefits5.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_6': Benefits6.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_7': Benefits7.objects.filter(**is_active).values('title', 'entry'),
+            'benefits_8': Benefits8.objects.filter(**is_active).values('title', 'entry'),
+            'style_main_page': StyleMainPage.objects.filter(**is_active).values('color'),
         }
         return render(request, 'app/index.html', context)
 

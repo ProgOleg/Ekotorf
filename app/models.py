@@ -21,6 +21,18 @@ class IsActiveField(models.Model):
         abstract = True
 
 
+class Benefits(IsActiveField):
+
+    title = models.CharField("Заголовок", max_length=50, blank=True)
+    entry = models.TextField("Запись", max_length=2000)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return f'{self.title}, {self.entry}'
+
+
 class SocialNetwork(IsActiveField):
 
     link = models.CharField("Ссылка", max_length=500)
@@ -275,7 +287,7 @@ class Applications(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     person = models.ForeignKey('Person', on_delete=models.SET_NULL, null=True)
-    quantity = models.CharField('Количество',max_length= 500, null=True, blank=True, default='0')
+    quantity = models.CharField('Количество', max_length=500, null=True, blank=True, default='0')
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -332,3 +344,108 @@ class Geomarker(IsActiveField):
 
     def __str__(self):
         return f'{self.latitude}, {self.longitude}'
+
+
+class MainOffice(IsActiveField):
+
+    address = models.CharField("Адрес", max_length=200)
+    link = models.CharField("Ссылка", max_length=1000)
+
+    class Meta:
+        verbose_name_plural = "Главный офис"
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    def __str__(self):
+        return f'{self.address}'
+
+
+class StyleMainPage(IsActiveField):
+    GREEN = ''
+    ORANGE = 'orange'
+    PINK = 'pink'
+    TYPE = [(GREEN, 'Зеленый'), (PINK, 'Розовый'), (ORANGE, 'Оранжевый')]
+
+    color = models.CharField("Цвет", max_length=20, choices=TYPE, default='')
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Стиль сайта"
+
+    def __str__(self):
+        return f'{self.color}'
+
+
+class Benefits1(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 1"
+
+
+class Benefits2(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 2"
+
+
+class Benefits3(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 3"
+
+
+class Benefits4(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 4"
+
+
+class Benefits5(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 5"
+
+
+class Benefits6(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 6"
+
+
+class Benefits7(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 7"
+
+
+class Benefits8(Benefits):
+
+    def save(self, *args, **kwargs):
+        IsActiveOnlyOne.save(self, *args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Приемущества - 8"

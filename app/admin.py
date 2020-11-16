@@ -4,7 +4,7 @@ from app.models import *
 from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 
 admin.site.register(FirstWindow)
-admin.site.register(SecondWindow)
+#admin.site.register(SecondWindow)
 admin.site.register(Feedback)
 admin.site.register(Faq)
 admin.site.register(PrivacyPolicy)
@@ -19,6 +19,16 @@ admin.site.register(ForCallback)
 admin.site.register(Person)
 admin.site.register(WorkingTime)
 admin.site.register(Geomarker)
+admin.site.register(MainOffice)
+admin.site.register(Benefits1)
+admin.site.register(Benefits2)
+admin.site.register(Benefits3)
+admin.site.register(Benefits4)
+admin.site.register(Benefits5)
+admin.site.register(Benefits6)
+admin.site.register(Benefits7)
+admin.site.register(Benefits8)
+admin.site.register(StyleMainPage)
 
 
 class ProductGalleryVideooAdmin(admin.ModelAdmin):
