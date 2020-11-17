@@ -53,7 +53,7 @@
 				<div class="wrapper">
 					<div class="schema-row">
 						<div class="schema-title">
-							<h2>Одна тонна брикетов заменяет</h2>
+							<h2>Одна тонна брикетов заменяет :</h2>
 						</div>
 						<div class="schema">
 							<div class="schema__center">
@@ -374,7 +374,7 @@
 											<span class="list-faq__icon"></span>
 										</a>
 										<div class="list-faq__answer">
-											<p> Да!<br /> {{el.entry}} </p>
+											<p>{{el.entry}} </p>
 										</div>
 									</li>
 								{% endfor %}
@@ -442,13 +442,13 @@
 					{% endif %}
 					{% if viber %}
 						<li class="social-list__item">
-							<a href="{{viber.0.link}}" class="social-list__link" target="_blank"><i class="icon-viber"></i></a>
+							<a href="viber://add?number={{viber.0.link}}" class="social-list__link" target="_blank"><i class="icon-viber"></i></a>
 						</li>
 					{% endif %}
 					
 					{% if whatsapp %}
 						<li class="social-list__item">
-							<a href="{{whatsapp.0.link}}" class="social-list__link" target="_blank"><i class="icon-whatsapp"></i></a>
+							<a href="https://api.whatsapp.com/send?phone={{whatsapp.0.link}}" class="social-list__link" target="_blank"><i class="icon-whatsapp"></i></a>
 						</li>
 					{% endif %}
 				</ul>
