@@ -162,7 +162,15 @@
 											</div>
 										</div>
 										{% else %}
-										<div class="catalog-list__item" data-title="Термопак" data-icon="icon-ink">
+										{% if el.type_packing == 1 %}
+											<div class="catalog-list__item" data-title="Мешок" data-icon="icon-sack">
+										{% elif el.type_packing == 2 %}
+											<div class="catalog-list__item" data-title="Термопак" data-icon="icon-ink">
+										{% elif el.type_packing == 3 %}	
+											<div class="catalog-list__item" data-title="Биг-Бег" data-icon="icon-bag">
+										{% elif el.type_packing == 4 %}	
+											<div class="catalog-list__item" data-title="Навал" data-icon="icon-delivery-truck">
+										{% endif %}
 											<div class="catalog-list__card">
 												<div class="catalog-list__cont">
 													<h3 class="catalog-list__title" data-aos="short-fade-up" data-aos-delay="800">{{ el.title }}</h3>
