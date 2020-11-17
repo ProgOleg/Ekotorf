@@ -362,7 +362,7 @@ class MainOffice(IsActiveField):
 
 
 class StyleMainPage(IsActiveField):
-    GREEN = ''
+    GREEN = 'green'
     ORANGE = 'orange'
     PINK = 'pink'
     TYPE = [(GREEN, 'Зеленый'), (PINK, 'Розовый'), (ORANGE, 'Оранжевый')]
