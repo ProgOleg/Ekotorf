@@ -302,7 +302,7 @@ class Person(models.Model):
     name = models.CharField("Имя", max_length=100, blank=True)
     tell = models.CharField("Телефон", max_length=20, blank=True)
     mail = models.EmailField("Почта", max_length=200, blank=True, null=True)
-    mailing_status = models.BooleanField(default=False)
+    mailing_status = models.BooleanField("Согласен на рассылку", default=False)
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
