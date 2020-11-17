@@ -345,11 +345,11 @@ $(function () {
 	$("#order").validate({
 		rules: {
 			name: "required",
-			tel: "required",
+			tell: "required",
 		},
 		messages: {
 			name: "*Обязательное поле",
-			tel: "*Обязательное поле",
+			tell: "*Обязательное поле",
 		},
 		submitHandler: function (form) {
 			$("#order").addClass("hide-form");
@@ -551,21 +551,25 @@ $('#review-form').submit(function(event) {
 	});
 
 $('#callback').submit(function(event) {
-		
 		event.preventDefault();
 		var data = $(this).serializeArray()
+	if (data[2].value == "" || data[1].value == ""){}
+	else {
 		var url = this.action
-		$.post(url,data, function(data) {})
-		
+		$.post(url, data, function (data) {})
+	}
 	});
 
 $('#order').submit(function(event) {	
 	event.preventDefault();
 	var data = $(this).serializeArray()
-	var count_product = $('.irs-single').text()
-	data['4'] = {'name':'count_product', 'value': count_product}
-	var url = this.action
-	$.post(url,data, function(data) {})
+	if (data[2].value == "" || data[1].value == ""){}
+	else{
+		var count_product = $('.irs-single').text()
+		data['4'] = {'name':'count_product', 'value': count_product}
+		var url = this.action
+		$.post(url,data, function(data) {})
+	}
 	});
 
 
