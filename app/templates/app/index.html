@@ -4,6 +4,15 @@
 {% load staticfiles %}
 {% get_media_prefix as media %}
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E38E6KYK0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-E38E6KYK0Z');
+    </script>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1" />
@@ -309,7 +318,11 @@
 									<div class="reviews-slider__card">
 										<div class="reviews-slider__user">
 											<div class="reviews-slider__ava">
-												<img src="{{ media}}{{ el.picture }}" alt="" />
+                                                {% if el.picture %}
+												    <img src="{{ media}}{{ el.picture }}" alt="" />
+                                                {% else %}
+                                                    <img src="{% static 'app/img/default_avatar.png' %}" alt="" />
+                                                {% endif %}
 											</div>
 											<div class="reviews-slider__name">{{ el.name }}</div>
 										</div>
@@ -401,7 +414,7 @@
 						{% endif %}
 					</ul>
 					<div class="main-office" data-aos="fade-left" data-aos-delay="450">
-						<img id="maps_ico" src="{% static 'app/img/pin-color.svg' %}" alt="" />
+						<img id="maps_ico" data-maps-ico="{% static 'app/img/pin-color.svg' %}" src="{% static 'app/img/pin-color.svg' %}" alt="" />
 						{% if main_office %}
 							<span><a href="{{main_office.0.link}}" target="_blank">{{main_office.0.address}}</a></span>
 						{% endif %}
@@ -772,6 +785,9 @@
 	{% if geomarker %}
 		<data id="geomarker" data-latitude="{{geomarker.0.latitude}}" data-longitude="{{geomarker.0.longitude}}"></data>
 	{% endif %}
+    {% if geomarker %}
+        <data id="geomarker" data-latitude="{{geomarker.0.latitude}}" data-longitude="{{geomarker.0.longitude}}"></data>
+    {% endif %}
 	<link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}" />
 	<script src="{% static 'app/js/jquery-3.5.1.min.js' %}"></script>
 	<script src="{% static 'app/js/components/slick.js' %}"></script>
