@@ -89,7 +89,7 @@
 
 if ($("#map").length && !$("#map").is(".init")) {
 	$("#map").lazyLoadGoogleMaps({
-		key: "AIzaSyA_HsqlZ1gvPYNtnW9C_04onOaCfyih9To",
+		key: "AIzaSyCMALW2kJxKFPHCewCJWSS4bnHZtNCm3iU",
 		// just an API key if you have one
 
 		libraries: false,
