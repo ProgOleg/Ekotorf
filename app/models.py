@@ -333,8 +333,8 @@ class WorkingTime(IsActiveField):
 
 class Geomarker(IsActiveField):
 
-    latitude = models.FloatField("Широта")
-    longitude = models.FloatField("Долгота")
+    latitude = models.CharField("Широта", max_length=100)
+    longitude = models.CharField("Долгота", max_length=100)
 
     def save(self, *args, **kwargs):
         IsActiveOnlyOne.save(self, *args, **kwargs)

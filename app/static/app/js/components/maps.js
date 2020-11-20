@@ -89,7 +89,7 @@
 
 if ($("#map").length && !$("#map").is(".init")) {
 	$("#map").lazyLoadGoogleMaps({
-		key: "AIzaSyCo7hljuelb86soVC97y4atK-n_brWfc34",
+		key: "AIzaSyA_HsqlZ1gvPYNtnW9C_04onOaCfyih9To",
 		// just an API key if you have one
 
 		libraries: false,
@@ -374,24 +374,26 @@ if ($("#map").length && !$("#map").is(".init")) {
 					]
 				}
 			];
+			let lat = $('#geomarker').data('latitude')
+			let lng = $('#geomarker').data('longitude')
 			var center = {
-				lat: 56.885609,
-				lng: 60.506646,
+				lat: lat,
+				lng: lng,
 			};
 			var marker, icon;
 
 			function initMap() {
 				map = new google.maps.Map(document.getElementById("map"), {
-					zoom: 11,
+					zoom: 12,
 					center: center,
 					styles: $stylesMap,
-					zoom: 16,
+					zoom: 17,
 					scrollwheel: false,
 					clickableIcons: false,
 				});
 
 				icon = {
-					url: "img/pin-color.svg", // url
+					url: $('#maps_ico').data('maps-ico'), // url
 					scaledSize: new google.maps.Size(35, 56), // scaled size
 					origin: new google.maps.Point(0, 0), // origin
 					anchor: new google.maps.Point(17, 18), // anchor
