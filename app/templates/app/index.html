@@ -318,7 +318,11 @@
 									<div class="reviews-slider__card">
 										<div class="reviews-slider__user">
 											<div class="reviews-slider__ava">
-												<img src="{{ media}}{{ el.picture }}" alt="" />
+                                                {% if el.picture %}
+												    <img src="{{ media}}{{ el.picture }}" alt="" />
+                                                {% else %}
+                                                    <img src="{% static 'app/img/default_avatar.png' %}" alt="" />
+                                                {% endif %}
 											</div>
 											<div class="reviews-slider__name">{{ el.name }}</div>
 										</div>
