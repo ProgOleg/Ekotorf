@@ -33,13 +33,13 @@ ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
     'admin_reorder', # django-modeladmin-reorder
 ]
 
