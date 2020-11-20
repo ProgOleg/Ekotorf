@@ -216,6 +216,29 @@ ADMIN_REORDER = [
 
 
 
+ADMIN_REORDER = [
+    'ЭкоТорф',
+    {'app': 'app', 'label': 'Клиентская Активность', 'models': (
+        'app.Applications', 'app.Person', 'app.Feedback',
+    )},
+    {'app': 'app', 'label': 'Товары', 'models': (
+        'app.Product', 'app.ProductGalleryPhoto', 'app.ProductGalleryVideo'
+    )},
+    {'app': 'app', 'label':  'Почты', 'models': (
+        'app.ForMailing', 'app.ForApplications', 'app.ForFeedback', 'app.ForCallback'
+    )},
+    {'app': 'app', 'label': 'Связь', 'models': (
+        'app.TelephoneNumberS', 'app.Viber', 'app.Telegram', 'app.Whatsapp'
+    )},
+    {'app': 'app', 'label': 'Локация', 'models': (
+        'app.WorkingTime', 'app.Geomarker', 'app.MainOffice'
+    )},
+    {'app': 'app', 'label': 'Контент', 'models': (
+        'app.FirstWindow', 'app.StyleMainPage', 'app.PrivacyPolicy', 'app.Faq', 'app.Benefits1',
+        'app.Benefits2', 'app.Benefits3', 'app.Benefits4', 'app.Benefits5', 'app.Benefits6',
+        'app.Benefits7', 'app.Benefits8',
+    )}
+]
 
 
 
