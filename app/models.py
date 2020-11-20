@@ -1,6 +1,6 @@
 from django.db import models
 from urllib.parse import urlparse, parse_qs
-
+from datetime import datetime
 
 class IsActiveOnlyOne:
 
@@ -284,17 +284,30 @@ class ProductGalleryVideo(models.Model):
 
 
 class Applications(models.Model):
+    TYPE = [
+        ('new', 'Новая'), ('processing', 'В обработке'),
+        ('success', 'Успех'), ('refusing', 'Отказ')
+    ]
 
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     person = models.ForeignKey('Person', on_delete=models.SET_NULL, null=True)
     quantity = models.CharField('Количество', max_length=500, null=True, blank=True, default='0')
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField("Дата создания", auto_now_add=True)
+    status = models.CharField("Статус заявки", max_length=30, choices=TYPE, default='new')
+    date_ready = models.DateTimeField("Дата готовности", default=None, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Заказы"
 
+    def save(self, *args, **kwargs):
+        if self.status == 'success':
+            self.date_ready = datetime.now()
+        return super(self.__class__, self).save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.product.__str__()}'
+
+    quantity.short_description = "Количество"
 
 
 class Person(models.Model):
@@ -307,6 +320,7 @@ class Person(models.Model):
 
     class Meta:
         verbose_name_plural = "Клиенты"
+        verbose_name = "Клиент"
 
     def save(self, *args, **kwargs):
         if self.mail:
@@ -314,7 +328,7 @@ class Person(models.Model):
         return super(self.__class__, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.name}, {self.tell}, {self.mail}, Рассылка - {self.mailing_status}'
+        return f'{self.name}'
 
 
 class WorkingTime(IsActiveField):

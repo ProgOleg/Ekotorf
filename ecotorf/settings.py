@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+r$_2z^(&od3&lu&ala3(*t!m6t_bmst56*mgw7q1_!%94p!_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 
@@ -33,13 +33,15 @@ ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
+    'liststyle',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
+    'admin_reorder', # django-modeladmin-reorder
 ]
 
 MIDDLEWARE = [
@@ -50,9 +52,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_reorder.middleware.ModelAdminReorder', # django-modeladmin-reorder
 ]
 
 ROOT_URLCONF = 'ecotorf.urls'
+
+#'DIRS': [os.path.join(BASE_DIR, 'templates')],
 
 TEMPLATES = [
     {
@@ -87,6 +92,13 @@ if DEBUG:
             'PORT': '5432',
         }
     }
+    # debug_toolbar
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    INTERNAL_IPS = ('127.0.0.1',)
+
 else:
     DATABASES = {
         'default': {
@@ -165,6 +177,44 @@ if not DEBUG:
             },
         },
     }
+
+# django-modeladmin-reorder
+
+ADMIN_REORDER = [
+    'ЭкоТорф',
+    {'app': 'app', 'label': 'Клиентская Активность', 'models': (
+        'app.Applications', 'app.Person', 'app.Feedback',
+    )},
+    {'app': 'app', 'label': 'Товары', 'models': (
+        'app.Product', 'app.ProductGalleryPhoto', 'app.ProductGalleryVideo'
+    )},
+    {'app': 'app', 'label':  'Почты', 'models': (
+        'app.ForMailing', 'app.ForApplications', 'app.ForFeedback', 'app.ForCallback'
+    )},
+    {'app': 'app', 'label': 'Связь', 'models': (
+        'app.TelephoneNumberS', 'app.Viber', 'app.Telegram', 'app.Whatsapp'
+    )},
+    {'app': 'app', 'label': 'Локация', 'models': (
+        'app.WorkingTime', 'app.Geomarker', 'app.MainOffice'
+    )},
+    {'app': 'app', 'label': 'Контент', 'models': (
+        'app.FirstWindow', 'app.StyleMainPage', 'app.PrivacyPolicy', 'app.Faq', 'app.Benefits1',
+        'app.Benefits2', 'app.Benefits3', 'app.Benefits4', 'app.Benefits5', 'app.Benefits6',
+        'app.Benefits7', 'app.Benefits8',
+    )}
+]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

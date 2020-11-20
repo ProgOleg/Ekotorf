@@ -1,0 +1,15 @@
+.row-new{
+    background-color: rgba(6, 15, 87, 0.1);
+}
+.row-processing{
+    background-color: rgba(194, 174, 87, 0.1);
+}
+.row-success{
+    background-color: rgba(25, 194, 90, 0.1);
+}
+.row-refusing{
+    background-color: rgba(209, 36, 87, 0.1);
+}
+.row-non{
+    background-color: #a1d4e5;
+}

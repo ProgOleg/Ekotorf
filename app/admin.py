@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from app.models import *
+from django.utils.html import format_html
 from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 
 admin.site.register(FirstWindow)
-#admin.site.register(SecondWindow)
 admin.site.register(Feedback)
 admin.site.register(Faq)
 admin.site.register(PrivacyPolicy)
@@ -29,6 +29,10 @@ admin.site.register(Benefits6)
 admin.site.register(Benefits7)
 admin.site.register(Benefits8)
 admin.site.register(StyleMainPage)
+
+
+admin.site.site_title = "Админапанель 'ЭкоТорф'"
+admin.site.site_header = "Админапанель 'ЭкоТорф'"
 
 
 class ProductGalleryVideooAdmin(admin.ModelAdmin):
@@ -136,15 +140,58 @@ class ApplicationsInline(admin.StackedInline):
 
 
 class ApplicationsAdmin(admin.ModelAdmin):
-    #inlines = [PersonInline]
 
-    list_display = ("product", "person", "date_created")
+    list_display = (
+        "admin_product_title", "persons", "persons_tell", "quantity", "status",  "date_cr", "date_ready",
+    )
 
-    def person(self, obj):
-        return f'{obj.__str__()}'
+    list_display_links = ('admin_product_title', 'persons')
+    list_editable = ("quantity", "status")
 
-    def product(self, obj):
-        return f'{obj.__str__()}'
+    def admin_product_title(self, obj):
+        return f'{obj.product.title}'
+    admin_product_title.short_description = 'Товар'
+    admin_product_title.admin_order_field = 'product__title'
+
+    def persons(self, obj):
+        return format_html(
+            f'<a href="/admin/app/person/{obj.person.pk}/change">{obj.person.name}</a>'
+        )
+    persons.short_description = "Клиент"
+    persons.admin_order_field = 'person__name'
+    persons.allow_tags = True
+
+    def persons_tell(self, obj):
+        return format_html(
+            f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
+        )
+    persons_tell.short_description = "Телефон"
+    persons_tell.admin_order_field = 'person__tell'
+    persons_tell.allow_tags = True
+
+    def date_cr(self, obj):
+        return obj.date_created
+    date_cr.short_description = "Дата создания"
+    date_cr.admin_order_field = 'date_created'
+
+    def count_prod(self, obj):
+        return obj.quantity
+    count_prod.short_description = "Количество"
+
+    def get_row_css(self, obj, index):
+        if obj.status == 'new':
+            return 'row-new'
+        elif obj.status == 'processing':
+            return 'row-processing'
+        elif obj.status == 'success':
+            return 'row-success'
+        elif obj.status == 'refusing':
+            return 'row-refusing'
+        else:
+            return 'row-non'
+
+
+    #model.quantity.short_description = ""
 
 
 admin.site.register(Product, ProductAdmin)
