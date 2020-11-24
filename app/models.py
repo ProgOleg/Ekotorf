@@ -300,7 +300,7 @@ class Applications(models.Model):
         verbose_name_plural = "Заказы"
 
     def save(self, *args, **kwargs):
-        if self.status == 'success':
+        if self.status == 'success' or self.status == 'refusing':
             self.date_ready = datetime.now()
         return super(self.__class__, self).save(*args, **kwargs)
 

@@ -1,14 +1,14 @@
 .row-new{
-    background-color: rgba(6, 15, 87, 0.1);
+    background-color: rgba(11, 43, 243, 0.2);
 }
 .row-processing{
-    background-color: rgba(194, 174, 87, 0.1);
+    background-color: rgba(243, 204, 5, 0.2);
 }
 .row-success{
-    background-color: rgba(25, 194, 90, 0.1);
+    background-color: rgba(76, 255, 7, 0.2);
 }
 .row-refusing{
-    background-color: rgba(209, 36, 87, 0.1);
+    background-color: rgba(255, 0, 0, 0.2);
 }
 .row-non{
     background-color: #a1d4e5;
