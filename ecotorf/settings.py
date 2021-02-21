@@ -148,7 +148,7 @@ EMAIL_HOST_USER = 'ekotorf.com@ekotorf.com'
 EMAIL_HOST_PASSWORD = '9pbs!Ca4'
 EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
-if not DEBUG:
+if DEBUG:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
