@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+r$_2z^(&od3&lu&ala3(*t!m6t_bmst56*mgw7q1_!%94p!_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 
@@ -148,25 +148,25 @@ EMAIL_HOST_USER = 'ekotorf.com@ekotorf.com'
 EMAIL_HOST_PASSWORD = '9pbs!Ca4'
 EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
-# if DEBUG:
-#     LOGGING = {
-#         'version': 1,
-#         'disable_existing_loggers': False,
-#         'handlers': {
-#             'file': {
-#                 'level': 'DEBUG',
-#                 'class': 'logging.FileHandler',
-#                 'filename': 'debug.log',
-#             },
-#         },
-#         'loggers': {
-#             'django': {
-#                 'handlers': ['file'],
-#                 'level': 'DEBUG',
-#                 'propagate': True,
-#             },
-#         },
-#     }
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': 'debug.log',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }
 
 ADMIN_REORDER = [
     'ЭкоТорф',
