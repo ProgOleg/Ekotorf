@@ -568,6 +568,7 @@ $('#order').submit(function(event) {
 		var count_product = $('.irs-single').text()
 		data['4'] = {'name':'count_product', 'value': count_product}
 		var url = this.action
+		fbq('track', 'Lead');
 		$.post(url,data, function(data) {})
 	}
 	});
@@ -587,4 +588,3 @@ $('#add_order_but').live('click', function(event) {
 	$(`#check_${type_packing}`).prop('checked', true)
 });
 
-/*animation*/
