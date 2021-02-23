@@ -289,6 +289,7 @@ class Applications(models.Model):
     person = models.ForeignKey('Person', on_delete=models.SET_NULL, null=True)
     quantity = models.CharField('Количество', max_length=500, null=True, blank=True, default='0')
     date_created = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Заказы"
