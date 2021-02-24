@@ -556,6 +556,7 @@ $('#callback').submit(function(event) {
 	if (data[2].value == "" || data[1].value == ""){}
 	else {
 		var url = this.action
+		fbq('track', 'Lead');
 		$.post(url, data, function (data) {})
 	}
 	});
