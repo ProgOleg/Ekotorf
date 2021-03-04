@@ -158,35 +158,39 @@ EMAIL_HOST_USER = 'ekotorf.com@ekotorf.com'
 EMAIL_HOST_PASSWORD = '9pbs!Ca4'
 EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
-if not DEBUG:
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {
-            'file': {
-                'level': 'DEBUG',
-                'class': 'logging.FileHandler',
-                'filename': 'debug.log',
-            },
-        },
-        'loggers': {
-            'django': {
-                'handlers': ['file'],
-                'level': 'DEBUG',
-                'propagate': True,
-            },
-        },
-    }
+# if not DEBUG:
+#     LOGGING = {
+#         'version': 1,
+#         'disable_existing_loggers': False,
+#         'handlers': {
+#             'file': {
+#                 'level': 'DEBUG',
+#                 'class': 'logging.FileHandler',
+#                 'filename': 'debug.log',
+#             },
+#         },
+#         'loggers': {
+#             'django': {
+#                 'handlers': ['file'],
+#                 'level': 'DEBUG',
+#                 'propagate': True,
+#             },
+#         },
+#     }
 
 # django-modeladmin-reorder
 
 ADMIN_REORDER = [
     'ЭкоТорф',
     {'app': 'app', 'label': 'Клиентская Активность', 'models': (
-        'app.Applications', 'app.Person', 'app.Feedback',
+        'app.Applications', 'app.Person',
+        'app.Callback', 'app.Feedback'
     )},
     {'app': 'app', 'label': 'Товары', 'models': (
         'app.Product', 'app.ProductGalleryPhoto', 'app.ProductGalleryVideo'
+    )},
+    {'app': 'auth', 'label': 'Администраторы', 'models': (
+        'auth.User', 'auth.Group'
     )},
     {'app': 'app', 'label':  'Почты', 'models': (
         'app.ForMailing', 'app.ForApplications', 'app.ForFeedback', 'app.ForCallback'
@@ -201,43 +205,7 @@ ADMIN_REORDER = [
         'app.FirstWindow', 'app.StyleMainPage', 'app.PrivacyPolicy', 'app.Faq', 'app.Benefits1',
         'app.Benefits2', 'app.Benefits3', 'app.Benefits4', 'app.Benefits5', 'app.Benefits6',
         'app.Benefits7', 'app.Benefits8',
-    )}
-]
-
-
-
-
-
-
-
-
-
-
-
-
-
-ADMIN_REORDER = [
-    'ЭкоТорф',
-    {'app': 'app', 'label': 'Клиентская Активность', 'models': (
-        'app.Applications', 'app.Person', 'app.Feedback',
     )},
-    {'app': 'app', 'label': 'Товары', 'models': (
-        'app.Product', 'app.ProductGalleryPhoto', 'app.ProductGalleryVideo'
-    )},
-    {'app': 'app', 'label':  'Почты', 'models': (
-        'app.ForMailing', 'app.ForApplications', 'app.ForFeedback', 'app.ForCallback'
-    )},
-    {'app': 'app', 'label': 'Связь', 'models': (
-        'app.TelephoneNumberS', 'app.Viber', 'app.Telegram', 'app.Whatsapp'
-    )},
-    {'app': 'app', 'label': 'Локация', 'models': (
-        'app.WorkingTime', 'app.Geomarker', 'app.MainOffice'
-    )},
-    {'app': 'app', 'label': 'Контент', 'models': (
-        'app.FirstWindow', 'app.StyleMainPage', 'app.PrivacyPolicy', 'app.Faq', 'app.Benefits1',
-        'app.Benefits2', 'app.Benefits3', 'app.Benefits4', 'app.Benefits5', 'app.Benefits6',
-        'app.Benefits7', 'app.Benefits8',
-    )}
 ]
 
 

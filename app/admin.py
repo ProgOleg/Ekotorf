@@ -1,7 +1,7 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from app.models import *
-from django.utils.html import format_html
 from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 
 admin.site.register(FirstWindow)
@@ -142,11 +142,14 @@ class ApplicationsInline(admin.StackedInline):
 class ApplicationsAdmin(admin.ModelAdmin):
 
     list_display = (
-        "admin_product_title", "persons", "persons_tell", "quantity", "status",  "date_cr", "date_ready",
+        "id", "admin_product_title", "persons", "persons_tell", "quantity", "status",  "date_cr", "date_ready",
+        "note", "geography",
     )
 
     list_display_links = ('admin_product_title', 'persons')
-    list_editable = ("quantity", "status")
+    list_editable = ("quantity", "status", "note", "geography")
+
+    readonly_fields = ["person",]
 
     def admin_product_title(self, obj):
         return f'{obj.product.title}'
@@ -191,9 +194,55 @@ class ApplicationsAdmin(admin.ModelAdmin):
             return 'row-non'
 
 
-    #model.quantity.short_description = ""
+class CallbackAdmin(admin.ModelAdmin):
+
+    list_display = ("id", "persons", "persons_tell", "status", "application_", "date_created",
+                    )
+    list_editable = ("status",)
+    list_display_links = ("id",)
+    # readonly_fields = ["person",  "application"]
+
+    def get_row_css(self, obj, index):
+        if obj.status == 'new':
+            return 'row-new'
+        elif obj.status == 'processing':
+            return 'row-processing'
+        elif obj.status == 'success':
+            return 'row-success'
+        elif obj.status == 'refusing':
+            return 'row-refusing'
+        else:
+            return 'row-non'
+
+    def persons_tell(self, obj):
+        return format_html(
+            f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
+        )
+    persons_tell.short_description = "Телефон"
+    persons_tell.admin_order_field = 'person__tell'
+    persons_tell.allow_tags = True
 
 
+    def persons(self, obj):
+        return format_html(
+            f'<a href="/admin/app/person/{obj.person.pk}/change">{obj.person.name}</a>'
+        )
+    persons.short_description = "Клиент"
+    persons.admin_order_field = 'person__name'
+    persons.allow_tags = True
+
+    def application_(self, obj):
+        if obj.application:
+            return format_html(
+                f'<a href="/admin/app/applications/{obj.application.pk}/change">{obj.application.__str__()}</a>'
+            )
+    application_.short_description = "Заявка"
+    application_.admin_order_field = 'applications__date_created'
+    application_.allow_tags = True
+
+
+
+admin.site.register(Callback, CallbackAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductGalleryPhoto, ProductGalleryPhotoAdmin)
 admin.site.register(ProductGalleryVideo, ProductGalleryVideooAdmin)

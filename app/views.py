@@ -10,7 +10,6 @@ from django.conf import settings
 from django.db.models import Prefetch, F
 
 
-
 class IndexPage(View):
 
     def get(self, request):

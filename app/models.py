@@ -289,12 +289,15 @@ class Applications(models.Model):
         ('success', 'Успех'), ('refusing', 'Отказ')
     ]
 
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    person = models.ForeignKey('Person', on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, verbose_name="Товар", on_delete=models.SET_NULL, null=True)
+    person = models.ForeignKey('Person', verbose_name="Клиент", on_delete=models.SET_NULL, null=True)
     quantity = models.CharField('Количество', max_length=500, null=True, blank=True, default='0')
     date_created = models.DateTimeField("Дата создания", auto_now_add=True)
     status = models.CharField("Статус заявки", max_length=30, choices=TYPE, default='new')
     date_ready = models.DateTimeField("Дата готовности", default=None, null=True, blank=True)
+
+    note = models.CharField(verbose_name="Заметка", null=True, default=None, max_length=5000)
+    geography = models.CharField(verbose_name="География", null=True, default=None, max_length=1024)
 
     class Meta:
         verbose_name_plural = "Заказы"
@@ -305,7 +308,7 @@ class Applications(models.Model):
         return super(self.__class__, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.product.__str__()}'
+        return f'id-{self.id},товар: {self.product.__str__()}, {self.date_created.strftime("%d.%m.%y %H:%M")}'
 
     quantity.short_description = "Количество"
 
@@ -316,7 +319,7 @@ class Person(models.Model):
     tell = models.CharField("Телефон", max_length=20, blank=True)
     mail = models.EmailField("Почта", max_length=200, blank=True, null=True)
     mailing_status = models.BooleanField("Согласен на рассылку", default=False)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField("Дата создания", auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "Клиенты"
@@ -328,7 +331,27 @@ class Person(models.Model):
         return super(self.__class__, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'id-{self.id}, {self.name}, {self.tell}, {self.mail}, Рассылка - {self.mailing_status}'
+
+
+class Callback(models.Model):
+    TYPE = [
+        ('new', 'Новая'), ('processing', 'В обработке'),
+        ('success', 'Успех'), ('refusing', 'Отказ')
+    ]
+
+    person = models.ForeignKey("Person", verbose_name="Клиент", on_delete=models.SET_NULL, null=True)
+    status = models.CharField("Статус заявки", max_length=30, choices=TYPE, default='new')
+    application = models.ForeignKey("Applications", verbose_name="Заказ", on_delete=models.SET_NULL,
+                                    null=True, default=None, blank=True)
+    date_created = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Заявка на обратный звонок"
+        verbose_name = "Заявки на обратный звонок"
+
+    def __str__(self):
+        return f'{self.person.name}, {self.person.tell}. Статус-{self.status}'
 
 
 class WorkingTime(IsActiveField):

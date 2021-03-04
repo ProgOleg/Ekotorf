@@ -556,6 +556,7 @@ $('#callback').submit(function(event) {
 	if (data[2].value == "" || data[1].value == ""){}
 	else {
 		var url = this.action
+		fbq('track', 'Lead');
 		$.post(url, data, function (data) {})
 	}
 	});
@@ -568,6 +569,14 @@ $('#order').submit(function(event) {
 		var count_product = $('.irs-single').text()
 		data['4'] = {'name':'count_product', 'value': count_product}
 		var url = this.action
+
+		fbq('track', 'Lead', {
+			value: data[4]["value"],
+				product_type_id: [data[6]['value']],
+			name: data[1]["value"],
+			phone_number: data[2]["value"]
+		});
+
 		$.post(url,data, function(data) {})
 	}
 	});
@@ -586,5 +595,3 @@ $('#add_order_but').live('click', function(event) {
 	var type_packing = $(this).data('packin-value')
 	$(`#check_${type_packing}`).prop('checked', true)
 });
-
-/*animation*/

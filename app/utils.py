@@ -4,6 +4,7 @@ from app.models import ForApplications, ForFeedback, ForCallback, ForMailing
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
+
 def pdb_stoper(function, request, *args, **kwargs):
 
     try:
