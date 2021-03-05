@@ -1,4 +1,6 @@
 Django==2.2.16
+django-debug-toolbar==3.1.1
+django-liststyle==0.2b0
 django-modeladmin-reorder==0.3.1
 Pillow==8.0.0
 psycopg2==2.8.6
