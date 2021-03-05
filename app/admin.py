@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from app.models import *
+from django import forms
 from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 
 admin.site.register(FirstWindow)
@@ -65,23 +66,6 @@ class ProductGalleryPhotoAdmin(admin.ModelAdmin):
     def name(self, obj):
         return f'{obj.__str__()}'
 
-"""
-class ProductGalleryVideoAdmin(admin.ModelAdmin):
-    models = ProductGalleryVideo
-
-    readonly_fields = ["preview_video_lin", "preview_img_lin"]
-    list_display = ('name', 'preview_video_lin', 'preview_img_lin')
-
-    def preview_video_lin(self, obj):
-        return mark_safe(f'<img src="{obj.link.url}" height="100">')
-
-    def preview_img_lin(self, obj):
-        return mark_safe(f'<img src="{obj.preview_link.url}" height="100">')
-
-    def name(self, obj):
-        return f'{obj.__str__()}'
-"""
-
 
 class ProductGalleryPhotoInline(admin.StackedInline):
     model = ProductGalleryPhoto
@@ -127,7 +111,7 @@ class PersonInline(admin.StackedInline):
     readonly_fields = ["person_tell", ]
 
     def person_tell(self, obj):
-        return f'{obj.tell}'
+        return f'{obj.tell}' if obj.tell else '-'
 
 
 class ApplicationsInline(admin.StackedInline):
@@ -136,7 +120,7 @@ class ApplicationsInline(admin.StackedInline):
     readonly_fields = ["person_tell",]
 
     def person_tell(self, obj):
-        return f'{obj.tell}'
+        return f'{obj.tell}' if obj.tell else '-'
 
 
 class ApplicationsAdmin(admin.ModelAdmin):
@@ -149,7 +133,7 @@ class ApplicationsAdmin(admin.ModelAdmin):
     list_display_links = ('admin_product_title', 'persons')
     list_editable = ("quantity", "status", "note", "geography")
 
-    readonly_fields = ["person",]
+    # readonly_fields = ["person",]
 
     def admin_product_title(self, obj):
         return f'{obj.product.title}'
@@ -157,17 +141,19 @@ class ApplicationsAdmin(admin.ModelAdmin):
     admin_product_title.admin_order_field = 'product__title'
 
     def persons(self, obj):
-        return format_html(
-            f'<a href="/admin/app/person/{obj.person.pk}/change">{obj.person.name}</a>'
-        )
+        if obj.person:
+            return format_html(
+                f'<a href="/admin/app/person/{obj.person.pk}/change">{obj.person.name}</a>'
+            )
     persons.short_description = "Клиент"
     persons.admin_order_field = 'person__name'
     persons.allow_tags = True
 
     def persons_tell(self, obj):
-        return format_html(
-            f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
-        )
+        if obj.person:
+            return format_html(
+                f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
+            )
     persons_tell.short_description = "Телефон"
     persons_tell.admin_order_field = 'person__tell'
     persons_tell.allow_tags = True
@@ -194,13 +180,23 @@ class ApplicationsAdmin(admin.ModelAdmin):
             return 'row-non'
 
 
-class CallbackAdmin(admin.ModelAdmin):
+class ApplicationsTabular(admin.TabularInline):
+    model = Applications
+    raw_id_fields = ("id",)
 
+
+# class CallbackAdminForm(forms.ModelForm):
+#     class Meta:
+#         model = Callback
+
+
+class CallbackAdmin(admin.ModelAdmin):
+    fields = ("person", "status")
+    # inlines = ("PersonTabular",)
     list_display = ("id", "persons", "persons_tell", "status", "application_", "date_created",
                     )
     list_editable = ("status",)
     list_display_links = ("id",)
-    # readonly_fields = ["person",  "application"]
 
     def get_row_css(self, obj, index):
         if obj.status == 'new':
@@ -218,15 +214,17 @@ class CallbackAdmin(admin.ModelAdmin):
         return format_html(
             f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
         )
+
     persons_tell.short_description = "Телефон"
     persons_tell.admin_order_field = 'person__tell'
     persons_tell.allow_tags = True
 
-
     def persons(self, obj):
-        return format_html(
-            f'<a href="/admin/app/person/{obj.person.pk}/change">{obj.person.name}</a>'
-        )
+        if obj.person:
+            return format_html(
+                f'<a href="/admin/app/person/{obj.person.pk}/change">{obj.person.name}</a>'
+            )
+
     persons.short_description = "Клиент"
     persons.admin_order_field = 'person__name'
     persons.allow_tags = True
@@ -239,6 +237,8 @@ class CallbackAdmin(admin.ModelAdmin):
     application_.short_description = "Заявка"
     application_.admin_order_field = 'applications__date_created'
     application_.allow_tags = True
+
+
 
 
 

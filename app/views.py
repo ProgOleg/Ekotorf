@@ -104,6 +104,7 @@ def callback_view(request):
         foo = PersonForm(request.POST)
         if foo.is_valid():
             obj = foo.save()
+            Callback.objects.create(person=obj)
             obj = Person.objects.filter(pk=obj.id).values('pk', 'name', 'tell', 'date_created')
             data = {'name': obj[0]['name'], 'tell': obj[0]['tell']}
             var = SendEmailMessage(obj[0], 'Callback', data)

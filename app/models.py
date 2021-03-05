@@ -296,8 +296,8 @@ class Applications(models.Model):
     status = models.CharField("Статус заявки", max_length=30, choices=TYPE, default='new')
     date_ready = models.DateTimeField("Дата готовности", default=None, null=True, blank=True)
 
-    note = models.CharField(verbose_name="Заметка", null=True, default=None, max_length=5000)
-    geography = models.CharField(verbose_name="География", null=True, default=None, max_length=1024)
+    note = models.CharField(verbose_name="Заметка", null=True, default=None, max_length=5000, blank=True)
+    geography = models.CharField(verbose_name="География", null=True, default=None, max_length=1024, blank=True)
 
     class Meta:
         verbose_name_plural = "Заказы"
