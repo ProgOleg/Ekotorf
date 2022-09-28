@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import mimetypes
+from dotenv import load_dotenv
+
+
+load_dotenv()  # take environment variables from .env.
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,10 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+r$_2z^(&od3&lu&ala3(*t!m6t_bmst56*mgw7q1_!%94p!_&'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'ekotorf.com', 'www.ekotorf.com']
 
@@ -85,30 +89,19 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'torf',
-            'USER': 'admin',
-            'PASSWORD': 'admin',
-            'HOST': 'localhost',
+            'NAME': os.getenv("DB_NAME"),
+            'USER': os.getenv("DB_USER"),
+            'PASSWORD': os.getenv("DB_PASSWORD"),
+            'HOST': os.getenv("DB_HOST"),
             'PORT': '5432',
         }
     }
     # debug_toolbar
-    INSTALLED_APPS += [
-        'debug_toolbar',
-    ]
-    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    # INSTALLED_APPS += [
+    #     'debug_toolbar',
+    # ]
+    # MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
     INTERNAL_IPS = ('127.0.0.1',)
-
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'u1203339_ekotorf',
-            'USER': 'u1203339_default',
-            'PASSWORD': '9pbs!Ca4',
-            'HOST': 'localhost',
-        }
-    }
 
 
 # Password validation
