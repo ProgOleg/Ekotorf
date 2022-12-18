@@ -211,9 +211,10 @@ class CallbackAdmin(admin.ModelAdmin):
             return 'row-non'
 
     def persons_tell(self, obj):
-        return format_html(
-            f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
-        )
+        if obj.person:
+            return format_html(
+                f'<a href="tel:{obj.person.tell}">{obj.person.tell}</a>'
+            )
 
     persons_tell.short_description = "Телефон"
     persons_tell.admin_order_field = 'person__tell'
